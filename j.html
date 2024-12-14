@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamelike.com - Number Guessing Game</title>
+    <style>
+        /* General page styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav {
+            background-color: #444;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Game container styles */
+        .game-container {
+            margin: 50px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .game-container input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            width: 80px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+        .game-container button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .game-container button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        .reset-btn {
+            background-color: #f44336;
+        }
+        .reset-btn:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Welcome to Gamelike.com</h1>
+        <p>Your go-to site for fun, free games!</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Games</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <!-- Main Game Area -->
+    <div class="game-container">
+        <h2>Number Guessing Game</h2>
+        <p>Guess the number between 1 and 100</p>
+        <input type="number" id="userGuess" min="1" max="100" placeholder="Enter guess">
+        <button onclick="checkGuess()">Guess</button>
+        <div class="result" id="result"></div>
+        <button class="reset-btn" onclick="resetGame()">Play Again</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Gamelike.com | All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Variables for the game
+        let randomNumber;
+        let attempts = 0;
+
+        // Function to start a new game
+        function startGame() {
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById("result").innerHTML = "";
+            document.getElementById("userGuess").value = "";
+        }
+
+        // Function to check the user's guess
+        function checkGuess() {
+            const userGuess = parseInt(document.getElementById("userGuess").value);
+            attempts++;
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                alert("Please enter a number between 1 and 100.");
+                return;
+            }
+
+            if (userGuess < randomNumber) {
+                document.getElementById("result").innerHTML = "Too low! Try again.";
+            } else if (userGuess > randomNumber) {
+                document.getElementById("result").innerHTML = "Too high! Try again.";
+            } else {
+                document.getElementById("result").innerHTML = `Congratulations! You guessed the number in ${attempts} attempts.`;
+            }
+        }
+
+        // Function to reset the game
+        function resetGame() {
+            startGame();
+        }
+
+        // Start the game when the page loads
+        startGame();
+    </script>
+
+</body>
+</html>
